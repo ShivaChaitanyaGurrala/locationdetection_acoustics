@@ -1,0 +1,18 @@
+[preprocess]
+is_spectrogram = 1
+manual = 0
+sr = 44100
+win_length_seconds = 0.04
+hop_length_seconds= 0.04
+n_fft = 2048
+n_mels = 128
+n_mfcc = 128
+fmin = 0
+fmax = 8000
+kernel_size =3
+filters = 32
+window = "hamming_asymmetric"
+batch_size = 16
+lr = 0.0001
+beta_1 = 0.9
+beta_2 = 0.999

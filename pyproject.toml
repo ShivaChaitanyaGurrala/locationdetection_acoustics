@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "locationdetection_acoustics"
+version = "0.1.0"
+description = ""
+authors = ["shiva <sg19t@my.fsu.edu>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tensorflow-gpu = "^2.4.1"
+scipy = "^1.6.1"
+Pillow = "^8.1.0"
+scikit-image = "^0.18.1"
+scikit-learn = "^0.24.1"
+librosa = "^0.8.0"
+tqdm = "^4.57.0"
+pathlib = "^1.0.1"
+cudnn = "^9.9.1"
+toml = "^0.10.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,74 @@
+download_path = "../locationdetection_acoustics/input_dir"
+
+# Here we mention the download path and the output location
+
+[datadict]
+dcase_fold1 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.1.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold2 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.2.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold3 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.3.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold4 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.4.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold5 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.5.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold6 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.6.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold7 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.7.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold8 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.8.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold9 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.9.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold10 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.10.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold11 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.11.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold12 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.12.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold13 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.13.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold14 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.14.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold15 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.15.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold16 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.16.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold17 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.17.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold18 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.18.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold19 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.19.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold20 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.20.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_fold21 = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.audio.21.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_doc = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.doc.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
+dcase_meta = [
+    "https://zenodo.org/record/2589280/files/TAU-urban-acoustic-scenes-2019-development.meta.zip?download=1",
+    "../locationdetection_acoustics/input_dir"]
