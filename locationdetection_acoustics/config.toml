@@ -1,3 +1,4 @@
+load = 1
 [preprocess]
 is_spectrogram = 1
 manual = 0

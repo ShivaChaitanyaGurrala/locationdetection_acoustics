@@ -36,9 +36,9 @@ def generate_spectrogram(f_path, label, folder_path):
     :param folder_path:
     :return:
     """
-    path_ = pathlib.Path.cwd().parent / "input_dir" / folder_path / label
+    path_ = pathlib.Path.cwd() / "input_dir" / folder_path / label
     config = toml.load(
-        pathlib.Path(r"/home/shiva/Desktop/locationdetection_acoustics/locationdetection_acoustics/config.toml"))
+        pathlib.Path(r"../locationdetection_acoustics/locationdetection_acoustics/config.toml"))
     # if this is set we will generate spectrogram for audio files
     # print(type(config["preprocess"]["is_spectrogram"]))
     img = None
@@ -131,7 +131,9 @@ def generate_spectrogram(f_path, label, folder_path):
         # img = np.array(Image)
         # if img.mode != 'RGB':
         #    img = img.convert('RGB')
+
         f_path = f_path.split("/")
+        import pdb; pdb.set_trace()
         f_path = f_path[len(f_path) - 1].split(".")[0] + ".png"
         s_file_name = path_ / f_path
         # scipy.misc.imsave(s_file_name, img)
@@ -149,7 +151,8 @@ class Preprocess:
         self.test_file = "fold1_evaluate"
         self.path_ = pathlib.Path.cwd()
         self.read_path = pathlib.Path(
-            self.path_.parent / "input_dir" / "TAU-urban-acoustic-scenes-2019-development_meta"
+            self.path_.parent / "locationdetection_acoustics" / "input_dir"
+            / "TAU-urban-acoustic-scenes-2019-development_meta"
             / "TAU-urban-acoustic-scenes-2019-development" / "evaluation_setup")
 
     def proc_prepare(self):

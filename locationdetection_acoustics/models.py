@@ -71,8 +71,9 @@ class RCNN(tf.keras.Model):
 
         return out
 
-
+'''
 rcnn = RCNN(filters=32, kernel_size=3)
 arr = tf.zeros([4, 256, 256, 3], dtype=tf.float32)
 rcnn.build(arr.shape)
 rcnn.summary()
+'''
