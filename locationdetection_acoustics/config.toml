@@ -1,13 +1,13 @@
 load = 1
 [preprocess]
 is_spectrogram = 1
-manual = 0
+manual = 4
 sr = 44100
-win_length_seconds = 0.04
-hop_length_seconds= 0.04
+win_length_seconds = 0.04644
+hop_length_seconds= 0.04644
 n_fft = 2048
-n_mels = 128
-n_mfcc = 128
+n_mels = 224
+n_mfcc = 224
 fmin = 0
 fmax = 8000
 kernel_size =3

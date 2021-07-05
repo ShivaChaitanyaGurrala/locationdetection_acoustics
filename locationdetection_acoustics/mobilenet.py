@@ -9,9 +9,15 @@ def pretrained_model():
     '''base_model = tf.keras.applications.vgg19.VGG19(input_shape=img_shape,
                                                    include_top=False,
                                                    weights='imagenet')'''
-    base_model = tf.keras.applications.DenseNet169(input_shape=img_shape,
+    '''base_model = tf.keras.applications.DenseNet169(input_shape=img_shape,
+                                                   include_top=False,
+                                                   weights='imagenet')'''
+    base_model = tf.keras.applications.DenseNet201(input_shape=img_shape,
                                                    include_top=False,
                                                    weights='imagenet')
+    '''base_model = tf.keras.applications.resnet.ResNet50(input_shape=img_shape,
+                                                       include_top=False,
+                                                       weights='imagenet')'''
     base_model.trainable = False
     for layer in base_model.layers:
         if 'conv5' in layer.name:
@@ -26,7 +32,7 @@ def pretrained_model():
 
     x = layers.Dense(units=256,
                      activation='relu',
-                     kernel_initializer=initializer
+                     # kernel_initializer=initializer
                      )(x)
 
     x = layers.Dropout(0.4)(x)
@@ -35,14 +41,14 @@ def pretrained_model():
 
     x = layers.Dense(units=128,
                      activation='relu',
-                     kernel_initializer=initializer
+                     # kernel_initializer=initializer
                      )(x)
 
     x = layers.Dropout(0.4)(x)
 
     x = layers.Dense(units=10,
                      activation='softmax',
-                     kernel_initializer=initializer
+                     # kernel_initializer=initializer
                      )(x)
 
     # use for VGG

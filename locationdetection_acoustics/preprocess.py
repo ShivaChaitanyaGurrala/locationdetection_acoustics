@@ -37,6 +37,7 @@ def generate_spectrogram(f_path, label, folder_path):
     :return:
     """
     path_ = pathlib.Path.cwd() / "input_dir" / folder_path / label
+    # removed locationdetection_acoustics/ from the beginning
     config = toml.load(
         pathlib.Path(r"../locationdetection_acoustics/locationdetection_acoustics/config.toml"))
     # if this is set we will generate spectrogram for audio files
@@ -57,6 +58,7 @@ def generate_spectrogram(f_path, label, folder_path):
         f_max = config["preprocess"]["fmax"]
         nfft = config["preprocess"]['n_fft']
         sr = config["preprocess"]["sr"]
+        # for log melspectogram features
         if config["preprocess"]["manual"] == 0:
             # print("Generating Images using melspectogram ")
             waveform, sample_rate = librosa.load(f_path, offset=1.0, duration=10.0, sr=sr)
@@ -72,6 +74,8 @@ def generate_spectrogram(f_path, label, folder_path):
             img = np.flip(img, axis=0)  # put low frequencies at the bottom in image
             # img = 255 - img  # invert. make black==more energy
             # img = Image.fromarray(img)
+
+            # for mel with mfcc added
         elif config["preprocess"]["manual"] == 1:
             if config["preprocess"]['window'] == 'hamming_asymmetric':
                 window = signal.windows.hamming(nfft, sym=False)
@@ -88,7 +92,7 @@ def generate_spectrogram(f_path, label, folder_path):
                 window=window
             )) ** 2
             mel_basis = librosa.filters.mel(
-                sr=22050,
+                sr=44100,
                 n_fft=nfft,
                 n_mels=mels,
                 fmin=f_min,
@@ -96,6 +100,18 @@ def generate_spectrogram(f_path, label, folder_path):
             mel_spectrum = np.dot(mel_basis, power_spectrogram)
             mfcc_img = librosa.feature.mfcc(S=librosa.amplitude_to_db(mel_spectrum),
                                             n_mfcc=config['preprocess']['n_mfcc'])
+
+            # Delta coefficients
+            mfcc_delta = librosa.feature.delta(mfcc_img)
+            # Delta 2 coefficients
+            mfcc_delta2 = librosa.feature.delta(mfcc_img, order=2)
+
+            # Add Delta Coefficients to feature matrix
+
+            # mfcc_img = np.vstack((mfcc_img, mfcc_delta, mfcc_delta2))
+            mfcc_img = mfcc_img + mfcc_delta + mfcc_delta2
+            mfcc_img = mfcc_img[1:, :]
+            mfcc_img = np.flip(mfcc_img)
             img = mfcc_img
             # img = np.log(img + 1e-9)
 
@@ -108,6 +124,12 @@ def generate_spectrogram(f_path, label, folder_path):
             # print(img.shape)
             # img = img.reshape(1, height, width)
             # print(img.shape)
+            # for chroma features only
+        elif config["preprocess"]["manual"] == 4:
+            waveform, sample_rate = librosa.load(f_path, offset=1.0, duration=10.0, sr=sr)
+            mfccs = librosa.feature.mfcc(waveform, sr=sample_rate)
+            img = mfccs[2:, :]
+            img = np.flip(img)
         '''elif config["preprocess"]["manual"] == 2:
             audio = tfio.audio.AudioIOTensor(f_path)
             audio_tensor = audio.to_tensor()
@@ -126,6 +148,8 @@ def generate_spectrogram(f_path, label, folder_path):
             # Convert to db scale mel-spectrogram
             img = tfio.experimental.audio.dbscale(
                 mel_spectrogram, top_db=80)'''
+
+
         # img = np.expand_dims(img, 0)
         # img = Image.fromarray(img)
         # img = np.array(Image)
@@ -133,7 +157,6 @@ def generate_spectrogram(f_path, label, folder_path):
         #    img = img.convert('RGB')
 
         f_path = f_path.split("/")
-        import pdb; pdb.set_trace()
         f_path = f_path[len(f_path) - 1].split(".")[0] + ".png"
         s_file_name = path_ / f_path
         # scipy.misc.imsave(s_file_name, img)
@@ -150,6 +173,7 @@ class Preprocess:
         self.train_file = "fold1_train"
         self.test_file = "fold1_evaluate"
         self.path_ = pathlib.Path.cwd()
+        # removed / "locationdetection_acoustics"  from the below path
         self.read_path = pathlib.Path(
             self.path_.parent / "locationdetection_acoustics" / "input_dir"
             / "TAU-urban-acoustic-scenes-2019-development_meta"

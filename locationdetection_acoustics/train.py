@@ -2,7 +2,7 @@ import tensorflow as tf
 import toml
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import pathlib
-from models import RCNN
+from models import RCNN, DenseANN
 from tensorflow.keras.optimizers import Adam
 import numpy as np
 import matplotlib.pyplot as plt
@@ -125,11 +125,19 @@ class LocationClassifier:
         # 1 - Load the model and its pretrained weights if exists
         # classifier = cnn()
         # classifier.load('weights/cnn_DF')
+        initial_learning_rate = self.config['lr']
+        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+            initial_learning_rate,
+            decay_steps=100000,
+            decay_rate=0.96,
+            staircase=True)
+
         # self.model = RCNN(kernel_size=self.config["kernel_size"], filters=self.config["filters"])
         self.model = pretrained_model()
+        # self.model = DenseANN(1024)
         self.model.compile(loss='categorical_crossentropy',
                            optimizer=Adam(
-                               learning_rate=self.config['lr'], beta_1=self.config['beta_1'],
+                               learning_rate=lr_schedule, beta_1=self.config['beta_1'],
                                beta_2=self.config['beta_2'], epsilon=1e-7), metrics=['accuracy'])
 
     def data_loader(self):
@@ -179,13 +187,15 @@ class LocationClassifier:
         print("DataSet loaded")
         # start training
         print("calling fit function on it")
+        callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=7)
         history = self.model.fit(
             self.train_generator,
             steps_per_epoch=575,
-            epochs=50,
+            epochs=75,
             verbose=1,
             validation_data=self.test_generator,
             validation_steps=262,
+            callbacks=[callback],
         )
         print(history.history.keys())
         #  "Accuracy"
@@ -196,6 +206,7 @@ class LocationClassifier:
         plt.xlabel('epoch')
         plt.legend(['train', 'validation'], loc='upper left')
         plt.savefig("accuracy.png")
+        plt.close()
         # "Loss"
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
@@ -204,4 +215,10 @@ class LocationClassifier:
         plt.xlabel('epoch')
         plt.legend(['train', 'validation'], loc='upper left')
         plt.savefig("loss.png")
-        self.model.save('newweights/Conv5.h5')
+        plt.close()
+        # self.model.save('newweights/Conv5.h5')
+
+
+if __name__ == "__main__":
+    classifier = LocationClassifier()
+    classifier.train()

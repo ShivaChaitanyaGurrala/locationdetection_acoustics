@@ -31,6 +31,33 @@ class ResnetIdentityBlock(tf.keras.Model):
         return tf.nn.relu(x)
 
 
+class DenseANN(tf.keras.Model):
+    def __init__(self, no_neurons):
+        super().__init__()
+        self.dense_1 = tf.keras.layers.Dense(no_neurons, activation="relu")
+        self.dense_2 = tf.keras.layers.Dense(no_neurons / 2, activation="relu")
+        self.dense_3 = tf.keras.layers.Dense(no_neurons / 4, activation="relu")
+        self.dense_4 = tf.keras.layers.Dense(no_neurons / 4, activation="relu")
+        self.dense_5 = tf.keras.layers.Dense(no_neurons / 4, activation="relu")
+        self.dense_6 = tf.keras.layers.Dense(no_neurons / 4, activation="relu")
+        self.dense_final = tf.keras.layers.Dense(10, activation="softmax")
+        self.drop = tf.keras.layers.Dropout(0.2)
+
+    def call(self, inputs, training=None):
+        x = tf.keras.layers.Flatten()(inputs)
+        x = self.dense_1(x)
+        x = self.dense_2(x)
+        x = self.dense_3(x)
+        x = self.dense_4(x)
+        if training:
+            x = self.drop(x)
+        x = self.dense_5(x)
+        if training:
+            x = self.drop(x)
+        x = self.dense_6(x)
+        return self.dense_final(x)
+
+
 class RCNN(tf.keras.Model):
     def __init__(self, kernel_size, filters):
         super().__init__()
@@ -41,8 +68,8 @@ class RCNN(tf.keras.Model):
         # self.rrdb_3 = ResnetIdentityBlock(kernel_size=kernel_size, filters=self.filters)
 
         self.conv_1 = tf.keras.layers.Conv2D(filters=self.filters, kernel_size=kernel_size, padding='same')
-        self.conv_2 = tf.keras.layers.Conv2D(filters=self.filters/4, kernel_size=kernel_size, padding='same')
-        self.conv_3 = tf.keras.layers.Conv2D(filters=self.filters/8, kernel_size=kernel_size, padding='same')
+        self.conv_2 = tf.keras.layers.Conv2D(filters=self.filters / 4, kernel_size=kernel_size, padding='same')
+        self.conv_3 = tf.keras.layers.Conv2D(filters=self.filters / 8, kernel_size=kernel_size, padding='same')
         self.flatten = tf.keras.layers.Flatten()
         self.relu = tf.keras.layers.LeakyReLU()
         self.dense_int = tf.keras.layers.Dense(512, activation='relu')
@@ -70,6 +97,7 @@ class RCNN(tf.keras.Model):
         out = self.dense_last(x)
 
         return out
+
 
 '''
 rcnn = RCNN(filters=32, kernel_size=3)

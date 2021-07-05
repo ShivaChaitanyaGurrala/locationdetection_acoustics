@@ -63,6 +63,7 @@ def data_download(datadict, file_path):
 
 
 def download_process():
+    # removed locationdetection_acoustics/ from the beginning
     config = toml.load(Path(r"../locationdetection_acoustics/locationdetection_acoustics/download.toml"))
     file_path = config["download_path"]
     down_paths = config["datadict"]
