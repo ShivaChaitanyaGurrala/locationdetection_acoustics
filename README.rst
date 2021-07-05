@@ -1,1 +1,1 @@
-This Project is to detect places where a person is currently standing
+Aucoustic Scene Classification using Transfer Learning
